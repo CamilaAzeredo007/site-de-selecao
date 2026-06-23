@@ -5,7 +5,7 @@ import Artista from './models/Artista.js';
 import Album from './models/Album.js';
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Configura o EJS como motor de views
 app.use(express.urlencoded({ extended: true }));
@@ -70,6 +70,15 @@ res.render("artistas/editartistasok")
 
 })
 
+//!PESQUISA POR NOME
+app.post('/artistas/lst', async (req, res) => {
+  const { pesquisar } = req.body;
+  const artistas = await Artista.find({
+    nome: new RegExp(pesquisar, 'i')
+  });
+  res.render("artistas/lstartistas", { artistas });
+})
+
 //!GENEROS
 /*app.get("/generos", (req, res) => {
   res.render("generos");
@@ -124,6 +133,17 @@ const genero = await Genero.findByIdAndUpdate(req.params.id, req.body)
 res.render("generos/editok")
 
 })
+
+//!PESQUISA POR NOME
+app.post('/generos/lst', async (req, res) => {
+  const { pesquisar } = req.body;
+  const generos = await Genero.find({
+    nome: new RegExp(pesquisar, 'i')
+  });
+  res.render("generos/lst", { generos });
+})
+
+
 
 //!MUSICAS
 /*app.get("/musicas", (req, res) => {
@@ -182,6 +202,18 @@ res.render("musicas/editmusicaok")
 
 })
 
+//!PESQUISA POR NOME
+app.post('/musicas/lst', async (req, res) => {
+  const { pesquisar } = req.body;
+  const musicas = await Musica.find({
+    titulo: new RegExp(pesquisar, 'i')
+  });
+  res.render("musicas/lstmusica", { musicas });
+})
+
+
+
+
 //!ALBUM
 app.get("/album/lst", async (req, res) => {
   const album = await Album.find()
@@ -224,6 +256,16 @@ const album = await Album.findByIdAndUpdate(req.params.id, req.body)
 res.render("album/editalbumok")
 
 })
+
+//!PESQUISA POR NOME
+app.post('/album/lst', async (req, res) => {
+  const { pesquisar } = req.body;
+  const album = await Album.find({
+    nome: new RegExp(pesquisar, 'i')
+  });
+  res.render("album/lstalbum", { album });
+})
+
 
 app.listen(PORT, ()=>{
  console.log(
