@@ -1,0 +1,40 @@
+<%- include('../cabecalho.ejs')%>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Lista de Músicas</h2>
+            <a href="/jogador/add" class="btn btn-success">+ Novo Jogador</a>
+        </div>
+        <form method="post">
+             <input type="text" name="pesquisar" placeholder="Nome do Jogador">
+             <input type="submit" value="Buscar">
+        </form>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>nome</th>
+                        <th>numero</th>
+                        <th>selecao</th>
+                        <th>Participação em gols</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%jogador.forEach(jogador => {%>
+                    <tr>
+                        <td><%=jogador.nome%></td>
+                        <td><%=jogador.numero%></td>
+                        <td><%=jogador.selecao%></td>
+                        <td><%=jogador.gols + jogador.assistencias%></td>
+                        <td><a href="/jogador/del/<%=jogador.id%>">Excluir</a>
+                        <a href="/jogador/edt/<%=jogador.id%>" class="link">Editar</a></td>
+                    </tr>
+                   <%})%>
+                  
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+<%- include('../rodape.ejs')%>

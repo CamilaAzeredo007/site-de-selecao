@@ -1,0 +1,39 @@
+<%- include('../cabecalho.ejs')%>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Lista de Seleções</h2>
+            <a href="/selecao/add" class="btn btn-success">+ Nova Seleção</a>
+        </div>
+        <form method="post">
+             <input type="text" name="pesquisar" placeholder="Titulos da Seleção">
+             <input type="submit" value="Buscar">
+        </form>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>País</th>
+                        <th>Cores</th>
+                        <th>Continente</th>
+                        <th>Titulos Mundiais</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%selecao.forEach(selecao => {%>
+                    <tr> 
+                        <td><%=selecao.pais%></td>
+                        <td><%=selecao.cores%></td>
+                        <td><%=selecao.continente%></td>
+                        <td><%=selecao.titulosMundiais%></td>
+                        <td><a href="/selecao/del/<%=selecao.id%>" class="link">Excluir</a>
+                        <a href="/selecao/edt/<%=selecao.id%>" class="link">Editar</a></td>
+                    </tr>
+                    <%})%>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+<%- include('../rodape.ejs')%>

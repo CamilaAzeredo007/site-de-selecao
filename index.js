@@ -1,11 +1,9 @@
 import express from "express";
-import Genero from './models/Genero.js';
-import Musica from './models/Musica.js';
-import Artista from './models/Artista.js';
-import Album from './models/Album.js';
+import Jogador from './models/Jogador.js';
+import Selecao from './models/Selecao.js';
 
 const app = express();
-const PORT = 3001;
+const PORT = 3004;
 
 // Configura o EJS como motor de views
 app.use(express.urlencoded({ extended: true }));
@@ -26,246 +24,129 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/artistas/lst", async (req, res) => {
-  const artistas = await Artista.find();
-  res.render("artistas/lstartistas", {artistas});
+//!SELECOES
+app.get("/selecao/lst", async (req, res) => {
+  const selecao = await Selecao.find();
+  res.render("selecoes/lst", {selecao});
 });
 
-app.get("/artistas/add", (req, res) => {
-  res.render("artistas/addartistas")
+app.get("/selecao/add", (req, res) => {
+  res.render("selecoes/add")
 });
 
-app.post("/artistas/add", async (req, res) => {
-  const nome = req.body.nome;
-  const pais = req.body.pais;
-  const anoInicio = req.body.anoInicio;
-  await Artista.create({nome, pais, anoInicio})
-  res.render("artistas/addartistasok")
+app.post("/selecao/add", async (req, res) => {
+  const {pais, cores, continente, titulosMundiais} = req.body;
+  await Selecao.create({pais, cores, continente, titulosMundiais})
+  res.render("selecoes/addok")
 });
 
 //!DELETE
-app.get('/artistas/del/:id', async (req, res) => {
+app.get('/selecao/del/:id', async (req, res) => {
 
-const artista = await Artista.findByIdAndDelete(req.params.id)
+const selecao = await Selecao.findByIdAndDelete(req.params.id)
 
-res.redirect("/artistas/lst")
+res.redirect("/selecao/lst")
 
 })
 
 //!EDIÇÃO
 
-app.get('/artistas/edt/:id', async (req, res) => {
+app.get('/selecao/edt/:id', async (req, res) => {
 
-const artista = await Artista.findById(req.params.id)
+const selecao = await Selecao.findById(req.params.id)
 
-res.render("artistas/editartistas", {artista})
-
-})
-
-app.post('/artistas/edt/:id', async (req, res) => {
-
-const artista = await Artista.findByIdAndUpdate(req.params.id, req.body)
-
-res.render("artistas/editartistasok")
+res.render("selecoes/edit", {selecao})
 
 })
 
-//!PESQUISA POR NOME
-app.post('/artistas/lst', async (req, res) => {
+app.post('/selecao/edt/:id', async (req, res) => {
+
+const selecao = await Selecao.findByIdAndUpdate(req.params.id, req.body)
+
+res.render("selecoes/editok")
+
+})
+
+//!PESQUISA POR TITULOS
+/*app.post('/selecao/lst', async (req, res) => {
   const { pesquisar } = req.body;
-  const artistas = await Artista.find({
-    nome: new RegExp(pesquisar, 'i')
+  const selecao = await Selecao.find({
+    titulosMundiais: new RegExp(pesquisar, 'i')
   });
-  res.render("artistas/lstartistas", { artistas });
-})
+  res.render("selecoes/lst", { selecao });
+})*/
 
-//!GENEROS
-/*app.get("/generos", (req, res) => {
-  res.render("generos");
+app.post('/selecao/lst', async (req, res) => {
+  const { pesquisar } = req.body;
+
+  const numero = parseInt(pesquisar, 10);
+
+  if (isNaN(numero)) {
+    return res.render("selecoes/lst", { selecao: [] });
+  }
+
+  const selecao = await Selecao.find({
+    // maior que { titulosMundiais: { $gt: numero } } // menor que { titulosMundiais: { $lt: numero } }
+    //maior ou igual
+    titulosMundiais: { $gte: numero }
+  });
+
+  res.render("selecoes/lst", { selecao });
 });
 
-app.post("/listadegeneros", (req, res) => {
-  const nome = req.body.nome;
-  const descricao = req.body.descricao;
 
-  res.render("generos", {nome, descricao})
-});*/
 
-app.get("/generos/lst", async (req, res) => {
-  const generos = await Genero.find();
-  res.render("generos/lst", {generos});
+//!JOGADORES
+app.get("/jogador/lst", async (req, res) => {
+  const jogador = await Jogador.find()
+  res.render("jogadores/lst", {jogador});
 });
 
-app.get("/generos/add", (req, res) => {
-  res.render("generos/add");
+app.get("/jogador/add", (req, res) => {
+  res.render("jogadores/add");
 });
 
-app.post("/generos/add", async (req, res) => {
-  const nome = req.body.nome;
-  const descricao = req.body.descricao;
-  await Genero.create({nome, descricao})
-  res.render("generos/addok");
+app.post("/jogador/add", async (req, res) => {
+  const {nome, numero, selecao, gols, assistencias} = req.body;
+  await Jogador.create({nome, numero, selecao, gols, assistencias})
+  res.render("jogadores/addok");
 });
 
 //!DELETE
-app.get('/generos/del/:id', async (req, res) => {
+app.get('/jogador/del/:id', async (req, res) => {
 
-const genero = await Genero.findByIdAndDelete(req.params.id)
+const jogador = await Jogador.findByIdAndDelete(req.params.id)
 
-res.redirect("/generos/lst")
+res.redirect("/jogador/lst")
 
 })
 
 //!EDIÇÃO
 
-app.get('/generos/edt/:id', async (req, res) => {
+app.get('/jogador/edt/:id', async (req, res) => {
 
-const genero = await Genero.findById(req.params.id)
+const jogador = await Jogador.findById(req.params.id)
 
-res.render("generos/edit", {genero})
-
-})
-
-app.post('/generos/edt/:id', async (req, res) => {
-
-const genero = await Genero.findByIdAndUpdate(req.params.id, req.body)
-
-res.render("generos/editok")
+res.render("jogadores/edit", {jogador})
 
 })
 
-//!PESQUISA POR NOME
-app.post('/generos/lst', async (req, res) => {
-  const { pesquisar } = req.body;
-  const generos = await Genero.find({
-    nome: new RegExp(pesquisar, 'i')
-  });
-  res.render("generos/lst", { generos });
-})
+app.post('/jogador/edt/:id', async (req, res) => {
 
+const jogador = await Jogador.findByIdAndUpdate(req.params.id, req.body)
 
-
-//!MUSICAS
-/*app.get("/musicas", (req, res) => {
-  res.render("musicas");
-});
-
-app.post("/listademusicas", (req, res) => {
-  const titulo = req.body.titulo;
-  const artista = req.body.artista;
-  const genero = req.body.genero;
-  const ano = req.body.ano;
-  const duracao = req.body.duracao;
-
-  res.render("musicas", {titulo, artista, genero, ano, duracao})
-});*/
-
-app.get("/musicas/lst", async (req, res) => {
-  const musicas = await Musica.find()
-  res.render("musicas/lstmusica", {musicas});
-});
-
-app.get("/musicas/add", (req, res) => {
-  res.render("musicas/addmusica");
-});
-
-app.post("/musicas/add", async (req, res) => {
-  const {titulo, duracao, artista, genero, album, ano} = req.body;
-  await Musica.create({titulo, duracao, artista, genero, album, ano})
-  res.render("musicas/addmusicaok");
-});
-
-//!DELETE
-app.get('/musicas/del/:id', async (req, res) => {
-
-const musica = await Musica.findByIdAndDelete(req.params.id)
-
-res.redirect("/musicas/lst")
-
-})
-
-//!EDIÇÃO
-
-app.get('/musicas/edt/:id', async (req, res) => {
-
-const musica = await Musica.findById(req.params.id)
-
-res.render("musicas/editmusica", {musica})
-
-})
-
-app.post('/musicas/edt/:id', async (req, res) => {
-
-const musica = await Musica.findByIdAndUpdate(req.params.id, req.body)
-
-res.render("musicas/editmusicaok")
+res.render("jogadores/editok")
 
 })
 
 //!PESQUISA POR NOME
-app.post('/musicas/lst', async (req, res) => {
+app.post('/jogador/lst', async (req, res) => {
   const { pesquisar } = req.body;
-  const musicas = await Musica.find({
-    titulo: new RegExp(pesquisar, 'i')
-  });
-  res.render("musicas/lstmusica", { musicas });
+  const jogador = await Jogador.find({
+    nome: new RegExp(`^${pesquisar}`, 'i')
+  }); 
+  res.render("jogadores/lst", { jogador });
 })
-
-
-
-
-//!ALBUM
-app.get("/album/lst", async (req, res) => {
-  const album = await Album.find()
-  res.render("album/lstalbum", {album});
-});
-
-app.get("/album/add", (req, res) => {
-  res.render("album/addalbum");
-});
-
-app.post("/album/add", async (req, res) => {
-  const {nome, artista, genero, descricao, anoLanc} = req.body;
-  await Album.create({nome, artista, genero, descricao, anoLanc})
-  res.render("album/addalbumok");
-});
-
-//!DELETE
-app.get('/album/del/:id', async (req, res) => {
-
-const album = await Album.findByIdAndDelete(req.params.id)
-
-res.redirect("/album/lst")
-
-})
-
-//!EDIÇÃO
-
-app.get('/album/edt/:id', async (req, res) => {
-
-const album = await Album.findById(req.params.id)
-
-res.render("album/editalbum", {album})
-
-})
-
-app.post('/album/edt/:id', async (req, res) => {
-
-const album = await Album.findByIdAndUpdate(req.params.id, req.body)
-
-res.render("album/editalbumok")
-
-})
-
-//!PESQUISA POR NOME
-app.post('/album/lst', async (req, res) => {
-  const { pesquisar } = req.body;
-  const album = await Album.find({
-    nome: new RegExp(pesquisar, 'i')
-  });
-  res.render("album/lstalbum", { album });
-})
-
 
 app.listen(PORT, ()=>{
  console.log(

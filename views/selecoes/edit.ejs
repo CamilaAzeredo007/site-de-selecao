@@ -1,0 +1,49 @@
+<%-include('../cabecalho.ejs')%>
+ <header>
+        <h3>Editar Seleção</h3>
+      </header>
+      <div class="content">
+        <form id="form-instrumento" method="post" autocomplete="off" >
+          <div class="grid">
+            <div>
+              <label for="nome">ID da Selecao</label>
+              <input id="id" value="<%=selecao.id%>" name="id" type="text" placeholder="Ex:Gope" required>
+            </div>
+            
+            <div>
+              <label for="nome">País do Selecao</label>
+              <input id="nome" value="<%=selecao.pais%>" name="pais" type="text" placeholder="Ex:Gope" required>
+            </div>
+
+            <div>
+              <label for="nome">Cores da Selecao</label>
+              <input id="nome" value="<%=selecao.cores%>" name="cores" type="text" placeholder="Ex:Gope" required>
+            </div>
+
+            <div class="form-group">
+                    <select name="continente" id="continente">
+                        <option value="">Selecione um Continente</option>
+                        <option value="América do Sul">América do Sul</option>
+                        <option value="América do Norte">América do Norte</option>
+                        <option value="África">África</option>
+                        <option value="Europa">Europa</option>
+                        <option value="Ásia">Ásia</option>
+                        <option value="Antártica">Antártica</option>
+                        <option value="Oceania">Oceania</option>
+                    </select>
+                </div>
+
+            <div>
+              <label for="nome">Titulos Mundiais da Selecao</label>
+              <input id="nome" value="<%=selecao.titulosMundiais%>" name="anoInicio" type="text" placeholder="Ex:Gope" required>
+            </div>
+
+           <div class="field-help">Os campos com * são obrigatórios.</div>
+          <footer>
+            <a type="button" class="btn ghost" id="btn-cancelar" href="/selecao/lst">Cancelar</a>
+            <button type="submit" class="btn primary">Editar Selecao</button>
+          </footer>
+        </form>
+      </div>
+
+  <%-include('../rodape.ejs')%>

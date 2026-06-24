@@ -1,0 +1,57 @@
+<%- include('../cabecalho.ejs')%>
+<main class="container">
+        <a href="/selecao/lst" class="back-link">← Voltar para lista</a>
+
+        <div class="form-container">
+            <h2>Cadastrar Nova Seleção</h2>
+            
+            <form method="post">
+                <div class="form-group">
+                    <label for="nome">Nome da Selecao *</label>
+                    <input 
+                        type="text" 
+                        id="pais" 
+                        name="pais" 
+                        
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="pais">Cores da Seleção *</label>
+                    <input 
+                        type="textarea" 
+                        id="cores" 
+                        name="cores" 
+                    >
+                </div>
+
+                <div class="form-group">
+                    <select name="continente" id="continente">
+                        <option value="">Selecione um Continente</option>
+                        <option value="América do Sul">América do Sul</option>
+                        <option value="América do Norte">América do Norte</option>
+                        <option value="África">África</option>
+                        <option value="Europa">Europa</option>
+                        <option value="Ásia">Ásia</option>
+                        <option value="Antártica">Antártica</option>
+                        <option value="Oceania">Oceania</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="anoInicio">Titulos da Seleção *</label>
+                    <input 
+                        type="number" 
+                        id="titulosMundiais" 
+                        name="titulosMundiais" 
+                    >
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                    <a href="/selecao/lst" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+<%- include('../rodape.ejs')%>

@@ -2,34 +2,22 @@
     
  <!-- Conteúdo Principal -->
     <main class="container">
-        <h2>Bem-vindo ao Sistema de Música</h2>
+        <h2>Bem-vindo ao Sistema de Futebol</h2>
         <img src="./gato.jpeg">
     </main>
     <div id="artistas">
-        <h3>Artistas</h3>
-        <p>Gerencie informações sobre artistas musicais, incluindo nome, país de origem e ano de início da carreira.</p>
-        <a href="/artistas" class="btn btn-primary">Ver Lista de Artistas</a>
-        <a href="/artistas/add" class="btn btn-success">Cadastrar Artista</a>
+        <h3>Seleções</h3>
+        <p>Cadastre e visualize todas as seleções com suas características e descrições.</p>
+        <a href="/selecao/lst" class="btn btn-primary">Ver Lista de Seleções</a>
+        <a href="/selecao/add" class="btn btn-success">Cadastrar Seleção</a>
     </div>
 
     <div>
-        <h3>Gêneros</h3>
-        <p>Cadastre e visualize diferentes gêneros musicais com suas características e descrições.</p>
-        <a href="/generos/lst" class="btn btn-primary">Ver Lista de Gêneros</a>
-        <a href="/generos/add" class="btn btn-success">Cadastrar Gêneros</a>
+        <h3>Jogadores</h3>
+        <p>Cadastre e visualize todos os jogadores das seleções com suas características e descrições.</p>
+        <a href="/jogador/lst" class="btn btn-primary">Ver Lista de Jogadores</a>
+        <a href="/jogador/add" class="btn btn-success">Cadastrar Jogador</a>
     </div>
 
-    <div>
-        <h3>Músicas</h3>
-        <p>Mantenha um catálogo completo de músicas com informações sobre artista, gênero e ano de lançamento.</p>
-        <a href="/musicas/lst" class="btn btn-primary">Ver Lista de Músicas</a>
-        <a href="/musicas/add" class="btn btn-success">Cadastrar Músicas</a>
-    </div>
-
-    <div>
-        <h3>Álbuns</h3>
-        <p>Mantenha um catálogo completo de ábuns com informações sobre o nome dele, artista, descrição e ano de lançamento.</p>
-        <a href="/album/lst" class="btn btn-primary">Ver Lista de Álbuns</a>
-        <a href="/album/add" class="btn btn-success">Cadastrar Álbum</a>
     </div>
 <%- include('rodape.ejs')%>

@@ -1,0 +1,41 @@
+<%-include('../cabecalho.ejs')%>
+ <header>
+        <h3>Editar Jogador</h3>
+      </header>
+      <div class="content">
+        <form id="form-instrumento" method="post" autocomplete="off" >
+          <div class="grid">
+            <div>
+              <label for="nome">ID do Jogador</label>
+              <input id="id" value="<%=jogador.id%>" name="id" type="text" placeholder="Ex:Gope" required>
+            </div>
+            <div>
+              <label for="nome">Nome do Jogador</label>
+              <input id="nome" value="<%=jogador.nome%>" name="nome" type="text" placeholder="Ex:Gope" required>
+            </div>
+            <div>
+              <label for="nome">Número da camisa do jogador</label>
+              <input id="nome" value="<%=jogador.numero%>" name="numero" type="text" placeholder="Ex:Gope" required>
+            </div>
+            <div>
+              <label for="nome">Seleção do Jogador</label>
+              <input id="nome" value="<%=jogador.selecao%>" name="genero" type="text" placeholder="Ex:Gope" required>
+            </div>
+            <div>
+              <label for="nome">Gols do Jogador</label>
+              <input id="nome" value="<%=jogador.gols%>" name="gols" type="text" placeholder="Ex:Gope" required>
+            </div>
+             <div>
+              <label for="nome">Assistências do jogador</label>
+              <input id="nome" value="<%=jogador.assistencias%>" name="assistencias" type="text" placeholder="Ex:Gope" required>
+            </div>
+
+           <div class="field-help">Os campos com * são obrigatórios.</div>
+          <footer>
+            <a type="button" class="btn ghost" id="btn-cancelar" href="/jogador/lst">Cancelar</a>
+            <button type="submit" class="btn primary">Editar Jogador</button>
+          </footer>
+        </form>
+      </div>
+
+  <%-include('../rodape.ejs')%>
